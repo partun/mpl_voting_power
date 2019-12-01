@@ -49,6 +49,9 @@ class Member:
 #stores data of a inivdual vote
 class Vote:
     idno = 0
+    date = '0000-00-00 00:00:00'
+    affairId = '000.00'
+    title = 'none'
     dision = 'undef'
     yes = None
     no = None
@@ -56,8 +59,8 @@ class Vote:
     novote = None
     session = None
     
-    def _init__(self, idno):
-        self.ifno = idno
+    def __init__(self, i):
+        self.idno = i
         self.yes = set()
         self.no = set()
         self.abstain = set()
@@ -75,8 +78,14 @@ class Vote:
                 self.novote.add(idMap[i])
         
     def pivotal(self, p_yes, p_no, p_abstain, p_novote):
-        return true 
-        
-    def __str__(self):
-        return self.idno + self.dision + ' yes:' + str(len(self.yes)) + ' no:' + str(len(self.no)) + ' abstain:' + str(len(self.abstain)) + ' novote:' + str(len(self.novote))
+        return True
+
+    def __str__(self):    
+        out = str(self.idno)
+        out += ' ' + self.dision
+        out += ' yes:' + str(len(self.yes))
+        out += ' no:' + str(len(self.no))
+        out += ' abstain:' + str(len(self.abstain))
+        out += ' novote:' + str(len(self.novote))
+        return out
         
