@@ -52,7 +52,7 @@ class Vote:
     date = '0000-00-00 00:00:00'
     affairId = '000.00'
     title = 'none'
-    dision = 'undef'
+    decision = 'undef'
     yes = None
     no = None
     abstain = None
@@ -66,19 +66,52 @@ class Vote:
         self.abstain = set()
         self.novote = set()
         
-    def getDision(self):
+    def getDecision(self):
         if len(self.yes) > len(self.no):
             return 'yes'
         if len(self.no) > len(self.yes):
             return 'no'
         return 'undef'
 
-    def pivotal(self, p_yes, p_no, p_abstain, p_novote):
-        return True
+    def isPivotal(self, party):
+        p_yes = 0
+        p_no = 0
+        p_abstain = 0
+        p_novote = 0
+        for mem in party:
+            if mem in self.yes:
+                p_yes += 1
+            elif mem in self.no:
+                p_no += 1
+            elif mem in self.abstain:
+                p_abstein += 1
+            elif mem in self.novote:
+                p_novote += 1
+
+        #decision was no
+        if self.decision == 'no':
+            new_yes = len(self.yes) + p_no + p_abstain
+            new_no = len(self.no) - p_no
+            if new_yes > new_no:
+                return True
+            elif new_no > new_yes:
+                return False
+        
+        #decision was yes
+        if self.decision == 'yes':
+            new_yes = len(self.yes) - p_yes
+            new_no = len(self.no) + p_yes + p_abstain
+            if new_no > new_yes:
+                return True
+            elif new_yes > new_no:
+                return False
+
+        #todo: handle draw
+        return False
 
     def __str__(self):    
         out = str(self.idno)
-        out += ' ' + self.dision
+        out += ' ' + self.decision
         out += ' yes:' + str(len(self.yes))
         out += ' no:' + str(len(self.no))
         out += ' abstain:' + str(len(self.abstain))
