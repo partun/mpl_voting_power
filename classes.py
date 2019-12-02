@@ -66,17 +66,13 @@ class Vote:
         self.abstain = set()
         self.novote = set()
         
-    def setVotes(self, votes, idMap):
-        for i, v in enumerate(votes):
-            if v == 'Ja':
-                self.yes.add(idMap[i])
-            elif v == 'Nein':
-                self.no.add(idMap[i])
-            elif v == 'Enthaltung':
-                self.abstain.add(idMap[i])
-            else:
-                self.novote.add(idMap[i])
-        
+    def getDision(self):
+        if len(self.yes) > len(self.no):
+            return 'yes'
+        if len(self.no) > len(self.yes):
+            return 'no'
+        return 'undef'
+
     def pivotal(self, p_yes, p_no, p_abstain, p_novote):
         return True
 
