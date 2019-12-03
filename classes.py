@@ -1,4 +1,5 @@
-#one file per national council session
+#stores meta date of a session
+#a session corresponds to one *.csv file
 class Session:
     idno = 0
     year = '0000'
@@ -23,7 +24,7 @@ class Session:
 #stores data for a inividual national council member
 class Member:
     idno = 0
-    bioid = 0
+    bioid = '0'
     name = 'none'
     faction = 'none'
     canton = 'none'
@@ -53,19 +54,23 @@ class Vote:
     affairId = '000.00'
     title = 'none'
     decision = 'undef'
-    yes = None
-    no = None
-    abstain = None
-    novote = None
-    session = None
     
+    #set of member bioids
+    yes = None #members voted yes
+    no = None #members voted no
+    abstain = None #members voted abstain
+    novote = None #members not present for vote
+    
+    session = None #ref to the session this vote was taken
+
     def __init__(self, i):
         self.idno = i
         self.yes = set()
         self.no = set()
         self.abstain = set()
-        self.novote = set()
+        self.novote = set() 
         
+    #returns the decison based on the yes/no set size    
     def getDecision(self):
         if len(self.yes) > len(self.no):
             return 'yes'
@@ -73,42 +78,97 @@ class Vote:
             return 'no'
         return 'undef'
 
-    def isPivotal(self, party):
+    # -tests if party is pivotal for this vote
+    # -party is set/list of members bioids
+    # -party can contain members that were not national council members 
+    #  at the time of the vote
+    def isPivotal(self, party, abstain=True, novote=False, draw=False):
         p_yes = 0
         p_no = 0
         p_abstain = 0
         p_novote = 0
+
         for mem in party:
             if mem in self.yes:
                 p_yes += 1
             elif mem in self.no:
                 p_no += 1
             elif mem in self.abstain:
-                p_abstein += 1
+                p_abstain += 1
             elif mem in self.novote:
                 p_novote += 1
 
+        if not abstain:
+            #do not consider members voted abstained
+            p_abstain = 0
+        if not novote:
+            #not consider not present members
+            p_novote = 0
+
+
         #decision was no
         if self.decision == 'no':
-            new_yes = len(self.yes) + p_no + p_abstain
+            new_yes = len(self.yes) + p_no + p_abstain + p_novote
             new_no = len(self.no) - p_no
             if new_yes > new_no:
+                #can change vote pivotal
                 return True
             elif new_no > new_yes:
+                #can not change vote not pivotal
                 return False
+            else:
+                #draw by default False
+                return draw
         
         #decision was yes
         if self.decision == 'yes':
             new_yes = len(self.yes) - p_yes
-            new_no = len(self.no) + p_yes + p_abstain
+            new_no = len(self.no) + p_yes + p_abstain + p_novote
             if new_no > new_yes:
                 return True
             elif new_yes > new_no:
                 return False
+            else:
+                return draw
 
-        #todo: handle draw
-        return False
+    # -messure for how unifed the party was in this vote
+    # -returns larges fraction of the party voted the same
+    # -party is list/set of members bioids
+    # -members not part of the national council at the time of the vote
+    #  are not counted in any case
+    def unitiy(self, party, abstain=True, novote=False):
+        p_yes = 0
+        p_no = 0
+        p_abstain = 0
+        p_novote = 0
 
+        for mem in party:
+            if mem in self.yes:
+                p_yes += 1
+            elif mem in self.no:
+                p_no += 1
+            elif mem in self.abstain:
+                p_abstain += 1
+            elif mem in self.novote:
+                p_novote += 1
+        
+        if not abstain:
+            #not consider abstain voters
+            p_abstain = 0
+    
+        if not novote:
+            #not consider abstain voters
+            p_novote = 0
+
+        p_max = max({p_yes, p_no, p_abstain, p_novote})
+        p_sum = sum({p_yes, p_no, p_abstain, p_novote})
+
+        if p_sum == 0:
+            return 1
+
+        return p_max / p_sum
+
+    #enables print for Vote class    
     def __str__(self):    
         out = str(self.idno)
         out += ' ' + self.decision
