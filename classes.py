@@ -1,3 +1,30 @@
+#calculates voting power index
+#parties beeing dict form party key to number of seats
+def votingPower(parties, t = 100):
+    count = 0
+    power = dict()
+    
+    for p in parties:
+        power[p]  = 0
+    
+    for i in range(len(parties)):
+        for par in itt.combinations(parties.keys(), i):
+            s = 0
+            count += 1
+            for x in par:
+                #print(x)
+                s += parties[x]
+            
+            if s > t:
+                for x in par:
+                    if not s - parties[x] > t:
+                        power[x] += 1
+    
+    
+    for p in power:
+        power[p] /= count 
+    return power
+
 #stores meta date of a session
 #a session corresponds to one *.csv file
 class Session:
@@ -61,6 +88,7 @@ class Vote:
     abstain = None #members voted abstain
     novote = None #members not present for vote
     
+    sessionId = 'none'
     session = None #ref to the session this vote was taken
 
     def __init__(self, i):
@@ -169,8 +197,9 @@ class Vote:
         return p_max / p_sum
 
     #enables print for Vote class    
-    def __str__(self):    
-        out = str(self.idno)
+    def __str__(self):
+        out = str(self.sessionId) + '# '    
+        out += str(self.idno)
         out += ' ' + self.decision
         out += ' yes:' + str(len(self.yes))
         out += ' no:' + str(len(self.no))
