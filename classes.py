@@ -1,3 +1,4 @@
+import itertools as itt
 #calculates voting power index
 #parties beeing dict form party key to number of seats
 def votingPower(parties, t = 100):
