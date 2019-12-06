@@ -1,29 +1,36 @@
 import itertools as itt
-#calculates voting power index
+#calulates Penrose-Banzhaf index (PBI) for parties with >=t votes for a winning coelition
 #parties beeing dict form party key to number of seats
-def votingPower(parties, t = 100):
-    count = 0
+def PBI_votingPower(parties, t = 100):
     power = dict()
-    
+    #initialize voting power to zero
     for p in parties:
         power[p]  = 0
     
-    for i in range(len(parties)):
-        for par in itt.combinations(parties.keys(), i):
+    #check for every party if it is pivotal for the empty subset
+    for p in parties:
+        if parties[p] >= t:
+            power[p] += 1
+    
+    #iterate trought all subsets for size 1 to len(parties) + 1
+    for i in range(1, len(parties) + 1):
+        for partition in itt.combinations(parties.keys(), i):
             s = 0
-            count += 1
-            for x in par:
-                #print(x)
+            #sum all the votes in the partition
+            for x in partition:
                 s += parties[x]
-            
-            if s > t:
-                for x in par:
-                    if not s - parties[x] > t:
+                
+            if s >= t:
+                #the partition in winning
+                for x in partition:
+                    #check for all parties in the partion if they are pivotal
+                    if s - parties[x] < t:
+                        #party in pivotal add 1 to the power
                         power[x] += 1
-    
-    
+                        
+    #divid the power of each party by the number of subsets without this party
     for p in power:
-        power[p] /= count 
+        power[p] /= pow(2,len(parties) -1)
     return power
 
 #stores meta date of a session
