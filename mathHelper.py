@@ -9,3 +9,9 @@ def setPrint(x):
 def dictPrint(x):
     for k in x:
         print(x[k])
+
+def norm(xs):
+    s = sum(xs)
+    for i, x in enumerate(xs):
+        xs[i] /= s
+    return xs

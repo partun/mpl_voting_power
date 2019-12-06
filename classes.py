@@ -147,7 +147,7 @@ class Vote:
                 return False
             else:
                 #draw by default False
-                return draw
+                return 'draw'
         
         #decision was yes
         if self.decision == 'yes':
@@ -158,7 +158,7 @@ class Vote:
             elif new_yes > new_no:
                 return False
             else:
-                return draw
+                return 'draw'
 
     # -messure for how unifed the party was in this vote
     # -returns larges fraction of the party voted the same
