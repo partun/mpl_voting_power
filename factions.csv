@@ -1,8 +1,8 @@
-key,name,49,50
-V,Fraktion der Schweizerischen Volkspartei,56,68
-S,Sozialdemokratische Fraktion,46,42
-RL,FDP-Liberale Fraktion,30,33
-C,CVP-Fraktion,31,29
-G,Grüne Fraktion,15,12
-BD,BDP Fraktion,9,7
-Gl,Grünliberale Fraktion,12,8
+key,factionKey,name,49,50
+SVP,V,Fraktion der Schweizerischen Volkspartei,56,68
+SP,S,Sozialdemokratische Fraktion,46,42
+FDP,RL,FDP-Liberale Fraktion,30,33
+CVP,C,CVP-Fraktion,31,29
+GSP,G,Grüne Fraktion,15,12
+BDP,BD,BDP Fraktion,9,7
+GLP,GL,Grünliberale Fraktion,12,8

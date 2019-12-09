@@ -1,4 +1,6 @@
 import itertools as itt
+
+faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP'}
 #calulates Penrose-Banzhaf index (PBI) for parties with >=t votes for a winning coelition
 #parties beeing dict form party key to number of seats
 def PBI_votingPower(parties, t = 100):
