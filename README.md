@@ -21,3 +21,10 @@ Steps:
 * parsing the csv files and read the data in memory
 * analyse and compute the data
 * visualise the results
+
+
+### Files
+* classes.py holds all the class definitions for the project
+* plot.py holds some helper function to faster print plots und the party colors
+* mathHelper holds mathmatical helper functions
+* voting_power.ipynb jupyter notebook with the main programm
