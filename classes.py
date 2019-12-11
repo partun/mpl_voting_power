@@ -1,6 +1,8 @@
 import itertools as itt
 
-faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP'}
+faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'CE': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP', '-': 'None'}
+party_names = {'SVP', 'SP', 'FDP', 'CVP', 'GSP', 'BDP', 'GLP', 'None'}
+
 #calulates Penrose-Banzhaf index (PBI) for parties with >=t votes for a winning coelition
 #parties beeing dict form party key to number of seats
 def PBI_votingPower(parties, t = 100):
@@ -216,4 +218,56 @@ class Vote:
         out += ' abstain:' + str(len(self.abstain))
         out += ' novote:' + str(len(self.novote))
         return out
-        
+
+# class to store voter profile of a vote for a party
+class VoteProfile:
+    yes = 0
+    no = 0
+    abstain = 0
+    novote = 0
+
+    def __init__(self):
+        self.yes = 0
+        self.no = 0
+        self.abstain = 0
+        self.novote = 0
+
+    def total(self):
+        return self.yes + self.no + self.abstain + self.novote
+
+    def partyVote(self, abstain=True, novote=False):
+        out = 'None'
+        t = -1
+
+        if self.yes > t:
+            out = 'yes'
+            t = self.yes
+
+        if self.no > t:
+            out = 'no'
+            t = self.no
+        elif self.no == t:
+            out = 'draw'
+
+        if abstain and self.abstain > t:
+            out = 'abstain'
+            t = self.abstain
+        elif abstain and self.abstain == t:
+            out = 'draw'
+
+        if novote and self.novote > t:
+            out = 'novote'
+            t = self.novote
+        elif novote and self.novote == t:
+            out = 'draw'
+
+        return out
+
+    def __str__(self):
+        out = 'party vote: ' + self.partyVote()
+        out += ' yes: ' + str(self.yes)
+        out += ' no:' + str(self.no)
+        out += ' abstain: ' + str(self.abstain)
+        out += ' novote: ' + str(self.novote)
+        out += ' total: ' + str(self.total())
+        return out
