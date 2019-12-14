@@ -10,8 +10,11 @@ def dictPrint(x):
     for k in x:
         print(x[k])
 
-def norm(xs):
+def norm(xs, percet=True):
     s = sum(xs)
     for i, x in enumerate(xs):
-        xs[i] /= s
+        if percet:
+            xs[i] /= s * 100
+        else:
+            xs[i] /= s
     return xs

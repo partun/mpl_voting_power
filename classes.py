@@ -2,6 +2,7 @@ import itertools as itt
 
 faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'CE': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP', '-': 'None'}
 party_names = {'SVP', 'SP', 'FDP', 'CVP', 'GSP', 'BDP', 'GLP', 'None'}
+party_order = {'SP': 1, 'GSP': 2, 'GLP': 3, 'CVP': 4, 'BDP': 5, 'FDP': 6, 'SVP': 7, 'None': 8}
 
 #calulates Penrose-Banzhaf index (PBI) for parties with >=t votes for a winning coelition
 #parties beeing dict form party key to number of seats
@@ -114,7 +115,7 @@ class Vote:
     def getDecision(self):
         if len(self.yes) > len(self.no):
             return 'yes'
-        if len(self.no) > len(self.yes):
+        if len(self.no) >= len(self.yes):
             return 'no'
         return 'undef'
 
