@@ -4,6 +4,11 @@ faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'CE': 'CVP', 'G
 party_names = {'SVP', 'SP', 'FDP', 'CVP', 'GSP', 'BDP', 'GLP', 'None'}
 party_order = {'SP': 1, 'GSP': 2, 'GLP': 3, 'CVP': 4, 'BDP': 5, 'FDP': 6, 'SVP': 7, 'None': 8}
 
+
+
+
+
+
 #calulates Penrose-Banzhaf index (PBI) for parties with >=t votes for a winning coelition
 #parties beeing dict form party key to number of seats
 def PBI_votingPower(parties, t = 100):
@@ -37,6 +42,17 @@ def PBI_votingPower(parties, t = 100):
     for p in power:
         power[p] /= pow(2,len(parties) -1)
     return power
+
+
+
+class KeyList:
+    l = None
+
+    def __init__(self):
+        l = [[]]
+
+    def append(seld, item):
+        pass
 
 #stores meta date of a session
 #a session corresponds to one *.csv file

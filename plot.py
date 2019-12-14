@@ -2,7 +2,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 def hist(data):
-    fig = go.Figure(data=[go.Histogram(x=data)])
+    fig = go.Figure(data=[go.Histogram(x=data, histnorm='percent')])
     fig.show()
 
 #colors = ['rgb(0, 154, 46)', 'rgb(255, 0, 0)', 'rgb(6, 60, 255)','rgb(255, 135, 0)', 'rgb(42, 232, 2)', 'rgb(255, 220, 0)', 'rgb(190, 239, 0)']
