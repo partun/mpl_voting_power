@@ -81,6 +81,12 @@ class KeyList:
         for i, _ in enumerate(self.value):
             self.value[i] /= t
 
+    def keyMap(self, f):
+        self.key = list(map(f, self.value))
+    
+    def valueMap(self, f):
+        self.value = list(map(f, self.value))
+
     def bar(self):
         fig = go.Figure([go.Bar(x=self.key, y=self.value)])
         fig.show()
@@ -90,6 +96,9 @@ class KeyList:
 
     def __str__(self):
         return str(list(zip(self.key, self.value)))
+
+    def __iter__(self):
+        return iter(zip(self.key, self.value))
 
 #stores meta date of a session
 #a session corresponds to one *.csv file
@@ -230,7 +239,7 @@ class Vote:
     # -party is list/set of members bioids
     # -members not part of the national council at the time of the vote
     #  are not counted in any case
-    def unitiy(self, party, abstain=True, novote=False):
+    def unity(self, party, abstain=True, novote=False):
         p_yes = 0
         p_no = 0
         p_abstain = 0

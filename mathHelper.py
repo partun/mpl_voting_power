@@ -18,3 +18,6 @@ def norm(xs, percet=True):
         else:
             xs[i] /= s
     return xs
+
+def mean(l):
+    return sum(l) / len(l)
