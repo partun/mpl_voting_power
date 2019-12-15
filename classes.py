@@ -1,4 +1,5 @@
 import itertools as itt
+import plotly.graph_objects as go
 
 faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'CE': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP', '-': 'None'}
 party_names = {'SVP', 'SP', 'FDP', 'CVP', 'GSP', 'BDP', 'GLP', 'None'}
@@ -46,13 +47,49 @@ def PBI_votingPower(parties, t = 100):
 
 
 class KeyList:
-    l = None
+    key = None
+    value = None
+    isSorted = False
 
     def __init__(self):
-        l = [[]]
+        self.key = []
+        self.value = []
 
-    def append(seld, item):
-        pass
+    def append(self, key, item):
+        self.isSorted = False
+        self.key.append(key)
+        self.value.append(item)
+
+    def extend(self, keys, items):
+        assert(len(keys) == len(items))
+        self.isSorted = False
+        self.key.extend(keys)
+        self.value.extend(items)  
+
+    def sort(self, key= lambda x: x):
+        temp = sorted(zip(self.value, self.key), key= lambda x: key(x[0]))
+        self.key = [k for v, k in temp]
+        self.value = [v for v, k in temp]
+        self.isSorted = True
+
+    def normalize(self, percent= False):
+        t = sum(self.value)
+
+        if percent:
+            t *= 100
+
+        for i, _ in enumerate(self.value):
+            self.value[i] /= t
+
+    def bar(self):
+        fig = go.Figure([go.Bar(x=self.key, y=self.value)])
+        fig.show()
+
+    def __sizeof__(self):
+        return len(self.key)
+
+    def __str__(self):
+        return str(list(zip(self.key, self.value)))
 
 #stores meta date of a session
 #a session corresponds to one *.csv file
