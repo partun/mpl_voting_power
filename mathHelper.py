@@ -12,11 +12,11 @@ def dictPrint(x):
 
 def norm(xs, percet=True):
     s = sum(xs)
-    for i, x in enumerate(xs):
-        if percet:
-            xs[i] /= s * 100
-        else:
-            xs[i] /= s
+    if percet:
+        s /= 100
+
+    for i, _ in enumerate(xs):
+        xs[i] /= s
     return xs
 
 def mean(l):

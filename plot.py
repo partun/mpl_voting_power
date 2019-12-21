@@ -13,6 +13,12 @@ def factionBar(x, y):
     fig = go.Figure([go.Bar(x=x, y=y, marker_color=faction_color)])
     fig.show()
 
+# prints bar chart form dict d
+# key function applied to the dict keys
+# value function applied to the dict items
+# if relativ is true the average is substracted form all values
+# if sort is true values are sorted by value
+# sortkey function can modify sort key
 def bar_dict(d, key= lambda x: x, value= lambda x: x, relativ= False, sort=False, sortKey= lambda x: x):
     x = []
     y = []
