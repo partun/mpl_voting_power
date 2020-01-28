@@ -1,48 +1,15 @@
 import itertools as itt
 import plotly.graph_objects as go
 
+#This file contain the diffrent class definition 
+
+#for raming faction to party abbreviations
 faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'CE': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP', '-': 'None'}
+
 party_names = {'SVP', 'SP', 'FDP', 'CVP', 'GSP', 'BDP', 'GLP', 'None'}
+#orders party by member count
 party_order = {'SP': 1, 'GSP': 2, 'GLP': 3, 'CVP': 4, 'BDP': 5, 'FDP': 6, 'SVP': 7, 'None': 8}
 
-
-
-
-
-
-#calulates Penrose-Banzhaf index (PBI) for parties with >=t votes for a winning coelition
-#parties beeing dict form party key to number of seats
-def PBI_votingPower(parties, t = 100):
-    power = dict()
-    #initialize voting power to zero
-    for p in parties:
-        power[p]  = 0
-    
-    #check for every party if it is pivotal for the empty subset
-    for p in parties:
-        if parties[p] >= t:
-            power[p] += 1
-    
-    #iterate trought all subsets for size 1 to len(parties) + 1
-    for i in range(1, len(parties) + 1):
-        for partition in itt.combinations(parties.keys(), i):
-            s = 0
-            #sum all the votes in the partition
-            for x in partition:
-                s += parties[x]
-                
-            if s >= t:
-                #the partition in winning
-                for x in partition:
-                    #check for all parties in the partion if they are pivotal
-                    if s - parties[x] < t:
-                        #party in pivotal add 1 to the power
-                        power[x] += 1
-                        
-    #divid the power of each party by the number of subsets without this party
-    for p in power:
-        power[p] /= pow(2,len(parties) -1)
-    return power
 
 
 
@@ -83,7 +50,7 @@ class KeyList:
 
     def keyMap(self, f):
         self.key = list(map(f, self.value))
-    
+
     def valueMap(self, f):
         self.value = list(map(f, self.value))
 
