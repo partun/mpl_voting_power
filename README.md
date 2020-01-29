@@ -25,6 +25,8 @@ Steps:
 
 ### Files
 * classes.py holds all the class definitions for the project
+* PBI.py holds the function to calculate the Banzhaf Voting Power Index
+* parser.py holds function to parse data and load it into memory
 * plot.py holds some helper function to faster print plots und the party colors
 * mathHelper holds mathmatical helper functions
 * voting_power.ipynb jupyter notebook with the main programm
