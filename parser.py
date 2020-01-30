@@ -8,8 +8,6 @@ class VotingData:
     factionList = dict()
     
 
-    
-
 #loads all the session form sessions.csv
 def loadSessions(file = 'sessions.csv', csv_data_dir = './csv_data'):
     #load session data form sessions.csv
@@ -46,6 +44,12 @@ def loadFactionsSize(file = 'factions.csv', period='50'):
                 l = next(csv_reader)
             except StopIteration:
                 break
+
+        t = 200 - sum(factions_count.values())
+        if t > 0:
+            factions_count['None'] = t
+
+        
         return factions_count
 
 

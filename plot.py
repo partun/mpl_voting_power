@@ -19,7 +19,7 @@ def factionBar(x, y):
 # if relativ is true the average is substracted form all values
 # if sort is true values are sorted by value
 # sortkey function can modify sort key
-def bar_dict(d, key= lambda x: x, value= lambda x: x, relativ= False, sort=False, sortKey= lambda x: x):
+def bar_dict(d, key= lambda x: x, value= lambda x: x, relativ= False, sort=False, sortKey= lambda x: x, xlable='', ylable='', titel=''):
     x = []
     y = []
     
@@ -37,4 +37,7 @@ def bar_dict(d, key= lambda x: x, value= lambda x: x, relativ= False, sort=False
         y = [v for _, v in temp]
     
     fig = go.Figure([go.Bar(x=x, y=y)])
+    fig.update_layout(title=titel,
+                   xaxis_title=xlable,
+                   yaxis_title=ylable)
     fig.show()

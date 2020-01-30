@@ -1,7 +1,8 @@
 import itertools as itt
 import plotly.graph_objects as go
 
-#This file contain the diffrent class definition 
+#This file contain the diffrent class definition
+#These datastructures are use by the parser.py to load the date in memory
 
 #for raming faction to party abbreviations
 faction_names = {'V': 'SVP', 'S': 'SP', 'RL': 'FDP', 'C': 'CVP', 'CE': 'CVP', 'G': 'GSP', 'BD': 'BDP', 'GL': 'GLP', '-': 'None'}

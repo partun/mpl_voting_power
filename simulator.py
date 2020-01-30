@@ -3,6 +3,7 @@ import parser
 import classes
 
 #simulate voting data were faction vote randomly
+#data has the same structure as the data returned form parser.py
 
 #generates faction member lists with number of members according to faction_size
 def genFactions(faction_size):
@@ -14,6 +15,17 @@ def genFactions(faction_size):
         t += count
     
     return simFaction
+
+#generates a member id to member maping that can be use to determine the faction coresponding to a member id
+def genMembers(factionList):
+    members = dict()
+
+    for f in factionList:
+        for mem in factionList[f]:
+            members[mem] = classes.Member(mem)
+            members[mem].faction = f
+    return members
+
 
 #generates vote array containing n votes where each faction votes randomly yes/no
 def genVotes(simFaction, n, unity=1):
@@ -52,5 +64,6 @@ def genData(faction_size, n, unity = 1):
 
     simData.factionList = genFactions(faction_size)
     simData.votes = genVotes(simData.factionList, n, unity=unity)
+    simData.members = genMembers(simData.factionList)
 
     return simData
