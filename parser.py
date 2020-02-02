@@ -10,7 +10,6 @@ class VotingData:
         self.votes = []
         self.members = dict()
         self.factionList = dict()
-    
 
 #loads all the session form sessions.csv
 def loadSessions(file = 'sessions.csv', csv_data_dir = './csv_data'):
