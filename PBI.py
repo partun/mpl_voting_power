@@ -10,7 +10,7 @@ def votingPower(parties, t = 100, v=False):
     for p in parties:
         power[p] = 0
     
-    #iterate over all subsets for size 1 to len(parties)
+    #iterate over all subsets
     for i in range(1, len(parties) + 1):
         for partition in itt.combinations(parties.keys(), i):
             s = 0

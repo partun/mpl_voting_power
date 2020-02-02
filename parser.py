@@ -1,7 +1,6 @@
 import csv
 import classes
 
-
 class VotingData:
     votes = []
     members = dict()
