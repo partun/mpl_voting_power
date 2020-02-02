@@ -2,9 +2,14 @@ import csv
 import classes
 
 class VotingData:
-    votes = []
-    members = dict()
-    factionList = dict()
+    votes = None
+    members = None
+    factionList = None
+
+    def __init__(self):
+        self.votes = []
+        self.members = dict()
+        self.factionList = dict()
     
 
 #loads all the session form sessions.csv
